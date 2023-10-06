@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPortal | Log In</title>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+
+    <!--bootstrap css1 js1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!--font-awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/frontend/lib/animate/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/frontend/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+    <link th:href="@{/frontend/css/style.css}" rel="stylesheet">
+    <link th:href="@{/frontend/css/login.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0 pe-3">
+        <a href="#" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+            <h1 class="m-0 text-primary">JobPortal</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 pe-5 p-lg-0">
+                <a th:href="@{/home}" class="nav-item nav-link">Home</a>
+                <a th:href="@{'/registerForm'}" class="nav-item nav-link">Register User</a>
+                <a th:href="@{'/companyRegisterForm'}" class="nav-item nav-link">Register Company</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!--Start Login Content -->
+    <div class="container my-5">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card w-100 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{frontend/img/login.png}" width="100%" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="my-5">
+                                <h2 class="fw-bolder mb-4">Sign In</h2>
+                                <form method="post" th:action="@{/login}" role="form">
+                                    <div class="input-group mb-3 border-bottom">
+                                        <span class="input-group-text input-icons"><i class="fa-solid fa-user"></i></span>
+                                        <input th:type="text" id="name" name="username" class="form-control inputs" placeholder="Username or Email" required />
+                                    </div>
+                                    <div class="input-group mb-3 border-bottom">
+                                        <span class="input-group-text input-icons"><i class="fa-solid fa-key"></i></span>
+                                        <input th:type="password" id="password" name="password" class="form-control inputs" placeholder="Password" required />
+                                    </div>
+                                    <div th:if="${param.error}">
+                                        <p class="error-message text-center text-danger">Incorrect credentials. Please try again.</p>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <a th:href="@{/forgot_password}" class="mb-3 text-decoration-none text-info">Forgot password?</a>
+                                        <button th:type="submit" class="btn btn-success w-100 rounded-1 py-2 mt-4">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Login Content -->
+
+    <!--Success mesage modal-->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog mx-auto w-lg-25 w-md-50 w-75" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-between align-items-center">
+                    <p class="text-success m-0" id="successMessage"></p>
+                    <a data-dismiss="modal"><i class="fas fa-times"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Success message modal End-->
+
+    <script th:inline="javascript">
+        function showSuccessModal() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            const hasLogout = urlParams.has("logout");
+            var passwordReset = "[[${passwordReset}]]";
+            var passwordChange = "[[${passwordChange}]]";
+            var register = "[[${registerSuccess}]]";
+
+            if (register === "true") {
+                $('#successMessage').text("Register successful! Wait for admin approval.");
+                $('#successModal').modal('show');
+                setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 3000);
+            }
+
+            if (passwordChange === "true") {
+                $('#successMessage').text("Password change successful!");
+                $('#successModal').modal('show');
+                setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 1500);
+            }
+            if (passwordReset === "true") {
+                $('#successMessage').text("Password reset successful!");
+                $('#successModal').modal('show');
+                setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 1500);
+            }
+            if (hasLogout) {
+                $('#successMessage').text("Logout successful!");
+                $('#successModal').modal('show');
+                setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 1500);
+            }
+        }
+        window.onload = showSuccessModal;
+    </script>
+
+    <!--bootstrap css1 js1 -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>

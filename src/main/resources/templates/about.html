@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>About - Job Portal Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/frontend/lib/animate/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/frontend/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link th:href="@{/frontend/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+<div class=" bg-white p-0">
+
+    <!--  navbar fragment -->
+    <nav th:replace="common/frontFragments :: navbar('about')"></nav>
+
+<!--    header fragment -->
+    <div th:replace="common/frontFragments :: header('about')"></div>
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="row g-0 about-bg rounded overflow-hidden">
+                        <div class="col-6 text-start">
+                            <img class="img-fluid w-100" th:src="@{frontend/img/about-1.jpg}">
+                        </div>
+                        <div class="col-6 text-start">
+                            <img class="img-fluid" th:src="@{frontend/img/about-2.jpg}" style="width: 85%; margin-top: 15%;">
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid" th:src="@{frontend/img/about-3.jpg}" style="width: 85%;">
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid w-100" th:src="@{frontend/img/about-4.jpg}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="mb-4">We Help To Get The Best Job And Find A Talent</h1>
+                    <p class="mb-4">Welcome to our job portal, your gateway to a world of opportunities. We're dedicated to simplifying your job search and connecting you with the right employers. Whether you're a seasoned professional or just starting your career, our platform offers a diverse range of job listings to suit your skills and aspirations. Create a compelling profile, explore the latest openings, and apply with ease. Let us help you take the next step in your career journey.</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Find your dream job today on our job portal!</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Connect with employers actively hiring in your field.</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Start your journey to a fulfilling career here.</p>
+                    <a class="btn btn-primary py-3 px-5 mt-3" th:href="@{/contact}">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!--     footer fragment -->
+    <div th:replace="common/frontFragments :: footer"></div>
+
+    <!--        back to top button -->
+    <a th:insert="common/frontFragments :: backToTop"></a>
+</div>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script th:src="@{/frontend/lib/wow/wow.min.js}"></script>
+<script th:src="@{/frontend/lib/easing/easing.min.js}"></script>
+<script th:src="@{/frontend/lib/waypoints/waypoints.min.js}"></script>
+<script th:src="@{/frontend/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+<!-- Template Javascript -->
+<script th:src="@{/frontend/js/main.js}"></script>
+</body>
+
+</html>

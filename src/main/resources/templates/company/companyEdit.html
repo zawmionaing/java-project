@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Company Edit</title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link th:href="@{/dashboard/css/light-bootstrap-dashboard.css?v=2.0.0} " th:rel="stylesheet" />
+  <link th:href="@{/dashboard/css/styles.css}" th:rel="stylesheet" />
+
+  <link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/frontend/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="wrapper">
+    <div th:replace="common/companyFragments :: sidebar('company')"></div>
+    <div class="main-panel">
+      <header th:insert="common/companyFragments :: header('company')"></header>
+
+      <div class="content">
+        <div class="container-fluid">
+          <form th:action="@{/company/updateCompany}" method="post" th:object="${companyEditForm}" enctype="multipart/form-data" class="text-secondary">
+            <div class="row justify-content-center ">
+              <div class="col-md-10">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 position-relative">
+                        <img th:if="${#strings.isEmpty(companyEditForm.coverPhoto)}" th:src="@{/dashboard/img/defaultCover.jpeg}" alt="cover image" class="w-100 h-75 rounded">
+                        <img th:if="${not #strings.isEmpty(companyEditForm.coverPhoto)}" th:src="@{'/company/img/' + ${companyEditForm.coverPhoto}}" alt="cover image" class="w-100 h-75 rounded">
+                        <div class="company_logo w-100 position-absolute d-flex justify-content-start align-items-end">
+                          <img th:if="${#strings.isEmpty(companyEditForm.logo)}" th:src="@{/dashboard/img/defaultLogo.jpeg}" alt="logo image" class="shadow-sm rounded mr-3">
+                          <img th:if="${not #strings.isEmpty(companyEditForm.logo)}" th:src="@{'/company/img/' + ${companyEditForm.logo}}" alt="logo image" class="shadow-sm rounded mr-3">
+                          <div class="d-flex flex-column">
+                            <h4 class="h4 mb-0 ">
+                              <a href="#" class="text-dark fw-bolder p-2 rounded bg-white">[[${companyEditForm.name}]]</a>
+                            </h4>
+                            <span class="h6 m-0 text-capitalize pl-2 fw-normal text-secondary">[[${companyEditForm.address}]]</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{logo}">
+                    <input type="hidden" th:field="*{coverPhoto}">
+
+                    <div class="row">
+                      <div class="col-4 from-group">
+                        <label for="name">Company Name:</label>
+                        <input type="text" class="form-control rounded" th:field="*{name}" id="name" />
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message text-danger"></span>
+                      </div>
+
+                      <div class="col-4 from-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" class="form-control rounded" th:field="*{phone}" id="phone" />
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message text-danger"></span>
+                      </div>
+
+                      <div class="col-4 from-group">
+                        <label for="address">Address:</label>
+                        <input type="text" class="form-control rounded" th:field="*{address}" id="address" />
+                        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-message text-danger"></span>
+                      </div>
+                    </div>
+
+                    <div class="row mb-5 form-group mt-3">
+                      <div class="col-md-6">
+                        <div class="mt-2">
+                          <label for="logo">Logo Image:</label>
+                          <input type="file" id="logo" name="logoImg" accept="image/*" class="rounded form-control">
+                          <div th:if="${#fields.hasErrors('logoImg')}" th:errors="*{logoImg}" class="error-message text-danger"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mt-2">
+                          <label for="coverPhoto">Cover Photo Image:</label>
+                          <input type="file" id="coverPhoto" name="coverPhotoImg" accept="image/*" class="rounded form-control">
+                          <div th:if="${#fields.hasErrors('coverPhotoImg')}" th:errors="*{coverPhotoImg}" class="error-message text-danger"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="test-center mt-2">
+                      <a th:href="@{/company/companyDetail}" class="btn btn-light">Cancel</a>
+                      <button type="submit" class="btn btn-info btn-fill pull-left mr-3">Update Profile
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div th:replace="common/companyFragments :: footer"></div>
+    </div>
+  </div>
+</body>
+
+
+<script type="text/javascript">
+  function cancelForm() {
+    window.location = "[[@{/company/detailCompany}]]";
+  }
+</script>
+<!--   Core JS Files   -->
+<script src="/dashboard/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="/dashboard/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/dashboard/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/dashboard/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<script src="/dashboard/js/demo.js"></script>
+
+</html>

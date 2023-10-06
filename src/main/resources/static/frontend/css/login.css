@@ -1,0 +1,15 @@
+
+
+.inputs{
+  padding: 10px;
+  border: none;
+}
+
+.inputs:focus{
+    outline:none;
+}
+
+.input-icons{
+  border: none;
+  background-color: transparent;
+}

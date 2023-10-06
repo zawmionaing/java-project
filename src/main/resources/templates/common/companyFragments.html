@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link th:href="@{/dashboard/css/light-bootstrap-dashboard.css?v=2.0.0} " th:rel="stylesheet" />
+    <link th:href="@{/dashboard/css/styles.css}" th:rel="stylesheet" />
+</head>
+
+<body>
+<!--sidebar fragment-->
+<div th:fragment="sidebar(field)" class="sidebar" data-color="blue" data-image="/dashboard/img/sidebar-5.jpg">
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a th:href="@{/}" class="simple-text">
+                Job Portal
+            </a>
+        </div>
+        <ul class="nav">
+            <li class="menu-item" th:classappend="${field == 'company'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{/company/companyDetail}">
+                    <i class="nc-icon nc-settings-90"></i>
+                    <p>Company Profile</p>
+                </a>
+            </li>
+            <li class="menu-item" th:classappend="${field == 'job'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{/company/jobList}">
+                    <i class="nc-icon nc-grid-45"></i>
+                    <p>Job Post</p>
+                </a>
+            </li>
+            <li class="menu-item" th:classappend="${field == 'application'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{/company/appliedJob}">
+                    <i class="nc-icon nc-single-copy-04"></i>
+                    <p>Job Applied User</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--header fragment-->
+<nav th:fragment="header(field)" class="navbar navbar-expand-lg " color-on-scroll="500">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#pablo" th:text="${field.toUpperCase()}">  </a>
+        <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar burger-lines"></span>
+            <span class="navbar-toggler-bar burger-lines"></span>
+            <span class="navbar-toggler-bar burger-lines"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link disabled" ><i class="nc-icon nc-single-02 me-2"></i><span sec:authentication="name"></span></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <span class="no-icon">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--footer fragment-->
+<footer th:fragment="footer" class="footer">
+    <div class="container-fluid">
+        <p class="copyright my-auto text-center">
+            &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            <a th:href="@{/admin/dashboard}" class="mx-2">OJT Group</a> Group project
+        </p>
+    </div>
+</footer>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>
